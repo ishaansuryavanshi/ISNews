@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IS News - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Updated Color Scheme (CNN/Fox News Style) */
+        body {
+            background-color: #f4f4f4;
+            color: #222;
+            font-family: Arial, sans-serif;
+        }
+        
+        header {
+            background-color: #c00; /* CNN/Fox Red */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            background: #002147; /* Dark Blue */
+            padding: 10px 0;
+        }
+        
+        nav ul li {
+            margin: 0 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 8px 15px;
+            transition: 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: #c00;
+            border-radius: 5px;
+        }
+        
+        .tiles {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .tile {
+            text-decoration: none;
+            width: 280px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .sports { background: linear-gradient(135deg, #c00, #900); }
+        .video-games { background: linear-gradient(135deg, #002147, #001533); }
+        .world-news { background: linear-gradient(135deg, #c00, #900); }
+        
+        .tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tile-content {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .news-section {
+            display: none;
+            margin: 50px auto;
+            width: 80%;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .news-section img {
+            width: 30%;
+            border-radius: 10px;
+        }
+    </style>
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.news-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+          }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to IS News</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+   ><main>
+        <div class="tiles">
+            <div class="tile sports" onclick="showSection('sports-section')">
+                <div class="tile-content">
+                    <h2>Sports</h2>
+                    <p>Latest updates and scores</p>
+                </div>
+            </div>
+            <div class="tile video-games" onclick="showSection('video-games-section')">
+                <div class="tile-content">
+                    <h2>Video Games</h2>
+                    <p>Trending games and reviews</p>
+                </div>
+            </div>
+            <div class="tile world-news" onclick="showSection('world-news-section')">
+                <div class="tile-content">
+                    <h2>World News</h2>
+                    <p>Breaking headlines worldwide</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="sports-section" class="news-section">
+            <h2>Sports News</h2>
+            <img src="sports.avif" alt="Sports Image">
+            <ul>
+          <p></p>
+            </ul>
+        </div>
+        
+        <div id="video-games-section" class="news-section">
+            <h2>Video Games</h2>
+            <img src="images.jpeg" alt="Video Games Image">
+            <ul>
+            <p></p>
+            </ul>
+        </div>
+        
+        <div id="world-news-section" class="news-section">
+            <h2>World News</h2>
+            <img src="newsimages.jpeg" alt="World News Image">
+            <ul>
+              <p></p>
+            </ul>
+        </div>
+    </main>
+</body>
+</html
