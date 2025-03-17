@@ -4,98 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IS News - Home</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
+   
     <style>
-        /* Updated Color Scheme (CNN/Fox News Style) */
-        body {
-            background-color: #f4f4f4;
-            color: #222;
-            font-family: Arial, sans-serif;
-        }
-        
-        header {
-            background-color: #c00; /* CNN/Fox Red */
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-        
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            background: #002147; /* Dark Blue */
-            padding: 10px 0;
-        }
-        
-        nav ul li {
-            margin: 0 20px;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            padding: 8px 15px;
-            transition: 0.3s;
-        }
-        
-        nav ul li a:hover {
-            background-color: #c00;
-            border-radius: 5px;
-        }
-        
-        .tiles {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 50px;
-            flex-wrap: wrap;
-        }
-        
-        .tile {
-            text-decoration: none;
-            width: 280px;
-            height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 15px;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-            color: white;
-            cursor: pointer;
-        }
-        
-        .sports { background: linear-gradient(135deg, #c00, #900); }
-        .video-games { background: linear-gradient(135deg, #002147, #001533); }
-        .world-news { background: linear-gradient(135deg, #c00, #900); }
-        
-        .tile:hover {
-            transform: translateY(-8px);
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .tile-content {
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .news-section {
-            display: none;
-            margin: 50px auto;
-            width: 80%;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        .news-section img {
-            width: 30%;
-            border-radius: 10px;
-        }
+
     </style>
     <script>
         function showSection(sectionId) {
@@ -115,7 +27,7 @@
             </ul>
         </nav>
     </header>
-   ><main>
+   <main>
         <div class="tiles">
             <div class="tile sports" onclick="showSection('sports-section')">
                 <div class="tile-content">
@@ -136,29 +48,95 @@
                 </div>
             </div>
         </div>
-        
         <div id="sports-section" class="news-section">
-            <h2>Sports News</h2>
-            <img src="sports.avif" alt="Sports Image">
-            <ul>
-          <p></p>
-            </ul>
+            <h2 style="text-align: center;">Top Daily Sports News</h2>
+            <img src="sports.avif" alt="Video Games Image">
+            <div id="news-container">Loading...</div>
+            
+            <script>
+                async function fetchRSSFeed() {
+                    const rssUrl = "https://www.espn.com/espn/rss/news"; // ESPN sports news RSS
+                    const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
+
+                    try {
+                        const response = await fetch(apiUrl);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        const data = await response.json();
+                        const parser = new DOMParser();
+                        const xmlDoc = parser.parseFromString(data.contents, "text/xml");
+
+                        const newsContainer = document.getElementById('news-container');
+                        newsContainer.innerHTML = '';
+
+                        const items = xmlDoc.querySelectorAll("item");
+                        items.forEach(item => {
+                            const title = item.querySelector("title")?.textContent || "No title";
+                            const link = item.querySelector("link")?.textContent || "#";
+                            const description = item.querySelector("description")?.textContent || "No description available";
+
+                            const newsItem = document.createElement('div');
+                            newsItem.className = 'news-item';
+                            newsItem.innerHTML = `
+                                <h3><a href="${link}" target="_blank">${title}</a></h3>
+                                <p>${description}</p>
+                            `;
+                            newsContainer.appendChild(newsItem);
+                        });
+                    } catch (error) {
+                        document.getElementById('news-container').innerHTML = 'Failed to load news.';
+                        console.error('Error fetching news:', error);
+                    }
+                }
+
+
+                fetchRSSFeed();
+            </script>
         </div>
-        
         <div id="video-games-section" class="news-section">
             <h2>Video Games</h2>
             <img src="images.jpeg" alt="Video Games Image">
-            <ul>
-            <p></p>
-            </ul>
         </div>
-        
         <div id="world-news-section" class="news-section">
-            <h2>World News</h2>
-            <img src="newsimages.jpeg" alt="World News Image">
-            <ul>
-              <p></p>
-            </ul>
+            <h2 style="text-align: center;">Top Daily World News</h2>
+            <img src="newsimages.jpeg" alt="News Image">
+            <div id="news-container1">Loading...</div>
+            <script>
+                async function fetchNews() {
+                    const rssUrl = 'http://feeds.bbci.co.uk/news/rss.xml';
+                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+                    console.log(apiUrl);
+                    try {
+                        const response = await fetch(apiUrl);
+                        const data = await response.json();
+
+                        console.log(data);
+                        if (!data.items) {
+                            throw new Error("No news found.");
+                        }
+        
+                        const newsContainer = document.getElementById('news-container1');
+                        newsContainer.innerHTML = '';
+                        data.items.slice(0, 10).forEach(article => {
+                            
+                            const newsCard = document.createElement('div');
+                            newsCard.className = 'news-card';
+                            newsCard.innerHTML = `
+                                <h3><a href="${article.link}" target="_blank">${article.title}</a></h3>
+                                <p>${article.description}</p>
+                            `;       
+                            newsContainer.appendChild(newsCard);
+                        });
+                    } catch (error) {
+                        console.error("Error fetching news:", error);
+                        document.getElementById('news-container1').innerHTML = `<p style="color:red;">Failed to load news.</p>`;
+                    }
+                }
+
+                fetchNews();
+            </script>
         </div>
     </main>
 </body>
