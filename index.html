@@ -52,37 +52,32 @@
             <h2 style="text-align: center;">Top Daily Sports News</h2>
             <img src="sports.avif" alt="Video Games Image">
             <div id="news-container">Loading...</div>
-            
             <script>
                 async function fetchRSSFeed() {
-                    const rssUrl = "https://www.espn.com/espn/rss/news"; // ESPN sports news RSS
-                    const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
-
+                    const rssUrl = "https://www.espn.com/espn/rss/news"; // ESPN RSS Feed
+                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
                     try {
                         const response = await fetch(apiUrl);
                         if (!response.ok) {
                             throw new Error(`HTTP error! Status: ${response.status}`);
                         }
                         const data = await response.json();
+                        console.log(data);
                         const parser = new DOMParser();
                         const xmlDoc = parser.parseFromString(data.contents, "text/xml");
 
                         const newsContainer = document.getElementById('news-container');
                         newsContainer.innerHTML = '';
 
-                        const items = xmlDoc.querySelectorAll("item");
-                        items.forEach(item => {
-                            const title = item.querySelector("title")?.textContent || "No title";
-                            const link = item.querySelector("link")?.textContent || "#";
-                            const description = item.querySelector("description")?.textContent || "No description available";
-
-                            const newsItem = document.createElement('div');
-                            newsItem.className = 'news-item';
-                            newsItem.innerHTML = `
-                                <h3><a href="${link}" target="_blank">${title}</a></h3>
-                                <p>${description}</p>
-                            `;
-                            newsContainer.appendChild(newsItem);
+                        data.items.slice(0, 10).forEach(article => {
+                            
+                            const newsCard = document.createElement('div');
+                            newsCard.className = 'news-card';
+                            newsCard.innerHTML = `
+                                <h3><a href="${article.link}" target="_blank">${article.title}</a></h3>
+                                <p>${article.description}</p>
+                            `;       
+                            newsContainer.appendChild(newsCard);
                         });
                     } catch (error) {
                         document.getElementById('news-container').innerHTML = 'Failed to load news.';
@@ -93,6 +88,7 @@
 
                 fetchRSSFeed();
             </script>
+
         </div>
         <div id="video-games-section" class="news-section">
             <h2>Video Games</h2>
@@ -103,7 +99,7 @@
             <img src="newsimages.jpeg" alt="News Image">
             <div id="news-container1">Loading...</div>
             <script>
-                async function fetchNews() {
+                            async function fetchNews() {
                     const rssUrl = 'http://feeds.bbci.co.uk/news/rss.xml';
                     const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
 
