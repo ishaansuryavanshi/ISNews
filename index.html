@@ -1,139 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IS News - Home</title>
-    <link rel="stylesheet" href="style.css">
-   
-    <style>
-
-    </style>
-    <script>
-        function showSection(sectionId) {
-            document.querySelectorAll('.news-section').forEach(section => {
-                section.style.display = 'none';
-            });
-            document.getElementById(sectionId).style.display = 'block';
-          }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Native Tribes for Kids</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 0;
+      background: #001111;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #00ff33;
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 1.5rem 1rem 4rem;
+    }
+    header {
+      width: 100%; max-width: 960px;
+      position: sticky; top: 0;
+      background: #002222cc;
+      border-bottom: 3px solid #00ff33;
+      box-shadow: 0 0 20px #00ff33aa;
+      z-index: 1000;
+      padding: 1.25rem 2rem;
+      text-align: center;
+      backdrop-filter: saturate(180%) blur(12px);
+    }
+    header h1 {
+      margin: 0; font-size: 2.8rem; font-weight: 900;
+      letter-spacing: 3px;
+      text-shadow: 0 0 10px #00ff33, 0 0 25px #00dd22, 0 0 40px #00ff33;
+      color: #00ff33;
+    }
+    nav { margin-top: 1rem; }
+    nav ul {
+      list-style: none; display: flex; justify-content: center;
+      gap: 1.2rem; padding: 0; margin: 0;
+    }
+    nav a {
+      display: block; padding: 0.8rem 1.2rem;
+      font-weight: 700; font-size: 1.05rem;
+      border-radius: 14px; border: 3px solid #00ff33;
+      text-decoration: none; color: #00ff33;
+      background: linear-gradient(145deg, #003030, #005050);
+      box-shadow: inset 0 0 8px #00ff3333, 0 0 14px #00ff3322;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 6px #00ff3399;
+    }
+    nav a:hover, nav a:focus-visible {
+      background: linear-gradient(145deg, #00ff33, #00dd22);
+      color: #001111;
+      box-shadow: 0 0 18px #00ff33, 0 0 35px #00dd22, inset 0 0 12px #00ff33;
+      transform: scale(1.1);
+      text-shadow: none;
+    }
+    nav a.active {
+      background: #00dd22; color: #001111;
+      box-shadow: 0 0 25px #00dd22, inset 0 0 16px #00ff33;
+      transform: scale(1.15);
+      pointer-events: none;
+    }
+    main { max-width: 960px; width: 100%; margin-top: 2.5rem; padding: 0 1.5rem; }
+    .section {
+      opacity: 0; max-height: 0; overflow: hidden;
+      transition: opacity 0.6s ease, max-height 0.6s ease;
+    }
+    .section.active { opacity: 1; max-height: 10000px; }
+    .section h2 {
+      font-size: 2.2rem; font-weight: 900;
+      margin-bottom: 1.5rem; letter-spacing: 1.2px;
+      border-bottom: 3px solid #00ff33; padding-bottom: 0.4rem;
+      text-shadow: 0 0 12px #00ff33aa;
+    }
+    .intro-text p {
+      margin-bottom: 1rem;
+      line-height: 1.5;
+      font-size: 1rem;
+      color: #a0ff99;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: #003030; border-radius: 18px;
+      box-shadow: 0 0 20px #00ff3322, inset 0 0 12px #00ff3311;
+      padding: 1.4rem; display: flex; flex-direction: column;
+      align-items: center; text-align: center;
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      box-shadow: 0 0 40px #00ff33bb, inset 0 0 25px #00ff33aa;
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%; max-width: 280px; height: 140px;
+      border-radius: 16px; object-fit: cover;
+      box-shadow: 0 0 18px #00ff33cc;
+      margin-bottom: 1rem;
+    }
+    .card h3 {
+      font-size: 1.4rem; font-weight: 900;
+      margin: 0 0 0.4rem 0; color: #00ff33;
+      text-shadow: 0 0 12px #00ff33;
+    }
+    .card p {
+      color: #a0ff99; font-size: 0.95rem;
+      line-height: 1.4; margin-bottom: 0.8rem;
+    }
+    .card a {
+      font-weight: 700; font-size: 1rem;
+      text-decoration: none; color: #00dd22;
+      border: 2px solid #00dd22; padding: 0.4rem 0.8rem;
+      border-radius: 12px; box-shadow: 0 0 8px #00dd22;
+      transition: all 0.3s ease;
+    }
+    .card a:hover {
+      background-color: #00dd22; color: #001111;
+      box-shadow: 0 0 20px #00ff33, 0 0 35px #00dd22;
+      transform: scale(1.05);
+    }
+    @media (max-width: 650px) {
+      nav ul { flex-direction: column; max-width: 260px; margin: 0 auto; gap: 1rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to IS News</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-            </ul>
-        </nav>
-    </header>
-   <main>
-        <div class="tiles">
-            <div class="tile sports" onclick="showSection('sports-section')">
-                <div class="tile-content">
-                    <h2>Sports</h2>
-                    <p>Latest updates and scores</p>
-                </div>
-            </div>
-            <div class="tile video-games" onclick="showSection('video-games-section')">
-                <div class="tile-content">
-                    <h2>Video Games</h2>
-                    <p>Trending games and reviews</p>
-                </div>
-            </div>
-            <div class="tile world-news" onclick="showSection('world-news-section')">
-                <div class="tile-content">
-                    <h2>World News</h2>
-                    <p>Breaking headlines worldwide</p>
-                </div>
-            </div>
+  <header>
+    <h1>Washington Native Tribes</h1>
+    <nav aria-label="Site Sections">
+      <ul>
+        <li><a href="javascript:void(0)" data-target="tribes" class="active">Tribes</a></li>
+        <li><a href="javascript:void(0)" data-target="culture">History & Culture</a></li>
+        <li><a href="javascript:void(0)" data-target="landmarks">Landmarks</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <!-- Tribes Section -->
+    <section id="tribes" class="section active">
+      <h2>Tribes of Washington</h2>
+      <div class="intro-text">
+        <p>Washington State has 29 recognized Native American tribes. Each tribe has its own government and land. They all have different traditions, languages, and histories. They have lived in this area for thousands of years before settlers arrived.</p>
+        <p>Tribes include the Yakama, Lummi, Snoqualmie, Makah, Muckleshoot, Puyallup, Nisqually, and many others. Some live on reservations, and some also live in towns or cities. Their governments take care of services like schools, health, and culture.</p>
+        <p>Fishing, hunting, and gathering are very important for many tribes. Treaties in the 1800s promised tribes the right to continue these traditions. Today, tribes still work to protect their lands and waters, including salmon rivers and forests.</p>
+        <p>Many tribes teach their native languages to children. Languages like Lushootseed, Sahaptin, and Chinook are brought back through schools, classes, and family teaching. Culture is shared through art, music, dancing, and ceremonies.</p>
+        <p>Tribes also run businesses like casinos, resorts, fisheries, and stores. Money from these businesses helps support tribal schools, housing, and community programs. Each tribe works hard to keep their traditions alive while living in the modern world.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          
+          <h3>Yakama Nation</h3>
+          <p>The Yakama Nation lives in south-central Washington. They fish, hunt, and keep cultural traditions alive. They have museums and education programs.</p>
+          <a href="https://yakama.com" target="_blank">Official Site</a>
         </div>
-        <div id="sports-section" class="news-section">
-            <h2 style="text-align: center;">Top Daily Sports News</h2>
-            <img src="sports.avif" alt="Video Games Image">
-            <div id="news-container">Loading...</div>
-            <script>
-                async function fetchRSSFeed() {
-                    const rssUrl = "https://www.espn.com/espn/rss/news"; // ESPN RSS Feed
-                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-                    try {
-                        const response = await fetch(apiUrl);
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        const data = await response.json();
-                        console.log(data);
-                        const parser = new DOMParser();
-                        const xmlDoc = parser.parseFromString(data.contents, "text/xml");
-
-                        const newsContainer = document.getElementById('news-container');
-                        newsContainer.innerHTML = '';
-
-                        data.items.slice(0, 10).forEach(article => {
-                            
-                            const newsCard = document.createElement('div');
-                            newsCard.className = 'news-card';
-                            newsCard.innerHTML = `
-                                <h3><a href="${article.link}" target="_blank">${article.title}</a></h3>
-                                <p>${article.description}</p>
-                            `;       
-                            newsContainer.appendChild(newsCard);
-                        });
-                    } catch (error) {
-                        document.getElementById('news-container').innerHTML = 'Failed to load news.';
-                        console.error('Error fetching news:', error);
-                    }
-                }
-
-
-                fetchRSSFeed();
-            </script>
-
+        <div class="card">
+          
+          <h3>Lummi Tribe</h3>
+          <p>The Lummi Tribe lives near Bellingham. They are famous for fishing and environmental work. They protect salmon and oceans.</p>
+          <a href="https://www.lummi-nsn.gov" target="_blank">Official Site</a>
         </div>
-        <div id="video-games-section" class="news-section">
-            <h2>Video Games</h2>
-            <img src="images.jpeg" alt="Video Games Image">
+        <div class="card">
+          
+          <h3>Snoqualmie Tribe</h3>
+          <p>The Snoqualmie Tribe lives near Snoqualmie Falls. They honor traditions, have ceremonies, and teach their language to kids.</p>
+          <a href="https://www.snoqualmietribe.us" target="_blank">Official Site</a>
         </div>
-        <div id="world-news-section" class="news-section">
-            <h2 style="text-align: center;">Top Daily World News</h2>
-            <img src="newsimages.jpeg" alt="News Image">
-            <div id="news-container1">Loading...</div>
-            <script>
-                            async function fetchNews() {
-                    const rssUrl = 'http://feeds.bbci.co.uk/news/rss.xml';
-                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-
-                    console.log(apiUrl);
-                    try {
-                        const response = await fetch(apiUrl);
-                        const data = await response.json();
-
-                        console.log(data);
-                        if (!data.items) {
-                            throw new Error("No news found.");
-                        }
-        
-                        const newsContainer = document.getElementById('news-container1');
-                        newsContainer.innerHTML = '';
-                        data.items.slice(0, 10).forEach(article => {
-                            
-                            const newsCard = document.createElement('div');
-                            newsCard.className = 'news-card';
-                            newsCard.innerHTML = `
-                                <h3><a href="${article.link}" target="_blank">${article.title}</a></h3>
-                                <p>${article.description}</p>
-                            `;       
-                            newsContainer.appendChild(newsCard);
-                        });
-                    } catch (error) {
-                        console.error("Error fetching news:", error);
-                        document.getElementById('news-container1').innerHTML = `<p style="color:red;">Failed to load news.</p>`;
-                    }
-                }
-
-                fetchNews();
-            </script>
+        <div class="card">
+          
+          <h3>Makah Tribe</h3>
+          <p>The Makah Tribe lives at Neah Bay. They fish whales, hunt, and teach traditional ways to their children.</p>
+          <a href="https://www.makah.com" target="_blank">Official Site</a>
         </div>
-    </main>
+        <div class="card">
+          
+          <h3>Muckleshoot Tribe</h3>
+          <p>The Muckleshoot Tribe lives near Auburn. They protect salmon and teach culture through events and schools.</p>
+          <a href="https://www.muckleshoot.nsn.us" target="_blank">Official Site</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Culture Section -->
+    <section id="culture" class="section">
+      <h2>History & Culture</h2>
+      <div class="intro-text">
+        <p>Long ago, Christopher Columbus traveled across the ocean. When Europeans came to America, it changed life for Native peoples. They lost lands, faced diseases, and had to deal with new laws.</p>
+        <p>Pocahontas was a Native woman from the East Coast. She helped English settlers at Jamestown. Her story shows how Native people had to survive during early colonization.</p>
+        <p>The Snoqualmie Tribe has lived in Washington for thousands of years. They fish, hunt, and have ceremonies at Snoqualmie Falls. They signed a treaty in 1855, which changed their land rights. Today, they teach their culture and language to children.</p>
+        <p>In the 1850s, the Puget Sound War happened. Tribes like the Nisqually and Puyallup fought to protect their homes. Leaders like Chief Leschi are remembered as heroes. These wars show how Native peoples defended their lands and rights.</p>
+        <p>Native Americans in Washington today celebrate their culture with art, dance, and music. They teach kids their languages and traditions. Even after hardships, they continue to protect the land, rivers, and forests for the future.</p>
+      </div>
+    </section>
+
+    <!-- Landmarks Section (includes resources) -->
+    <section id="landmarks" class="section">
+      <h2>Landmarks</h2>
+      <div class="intro-text">
+        <p>Discover important landmarks and online resources to learn about Washington Native tribes. Kids can explore museums, cultural centers, sacred sites, and educational websites.</p>
+      </div>
+      <div class="cards-grid">
+        <!-- Landmarks -->
+        <div class="card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Snoqualmie_Falls.jpg" alt="Snoqualmie Falls">
+          <h3>Snoqualmie Falls</h3>
+          <p>A sacred place for the Snoqualmie Tribe. Visitors can see the waterfall and learn about its spiritual importance.</p>
+          <a href="https://www.snoqualmiefalls.com" target="_blank">Visit Site</a>
+        </div>
+        <div class="card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Yakama_Nation_Cultural_Center.jpg" alt="Yakama Nation Cultural Center">
+          <h3>Yakama Nation Cultural Center</h3>
+          <p>Explore Yakama history, art, and traditions. Kids can join powwows and hands-on learning activities.</p>
+          <a href="https://yakama.com" target="_blank">Visit Site</a>
+        </div>
+        <div class="card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Muckleshoot_Tribe_Community.jpg" alt="Muckleshoot Tribal Center">
+          <h3>Muckleshoot Tribal Center</h3>
+          <p>Learn about the Muckleshoot Tribe’s culture and community programs. Kids can see art and storytelling events.</p>
+          <a href="https://www.muckleshoot.nsn.us" target="_blank">Visit Site</a>
+        </div>
+        <div class="card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Makah_Museum.jpg" alt="Makah Museum">
+          <h3>Makah Museum</h3>
+          <p>Located in Neah Bay, this museum showcases whale hunting, fishing, and Makah traditions.</p>
+          <a href="https://www.makah.com" target="_blank">Visit Site</a>
+        </div>
+        <!-- Online Resources -->
+        <div class="card">
+          <h3>National Congress of American Indians</h3>
+          <p>Supports Native nations and educates people about tribes across the USA.</p>
+          <a href="https://www.ncai.org" target="_blank">Visit Site</a>
+        </div>
+        <div class="card">
+          <h3>Smithsonian National Museum of the American Indian</h3>
+          <p>Offers exhibits about Native cultures and history, including Washington tribes.</p>
+          <a href="https://americanindian.si.edu" target="_blank">Visit Site</a>
+        </div>
+        <div class="card">
+          <h3>Washington State Tribes</h3>
+          <p>Official site listing all recognized tribes in Washington with links to their governments.</p>
+          <a href="https://www.goia.wa.gov/tribal-directory" target="_blank">Visit Site</a>
+        </div>
+        <div class="card">
+          <h3>HistoryLink</h3>
+          <p>Online encyclopedia with articles about the history of Washington, including Native peoples.</p>
+          <a href="https://www.historylink.org" target="_blank">Visit Site</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const tabs = document.querySelectorAll('nav a');
+    const sections = document.querySelectorAll('.section');
+
+    function activateTab(tab) {
+      tabs.forEach(t => t.classList.toggle('active', t === tab));
+      sections.forEach(section => section.classList.toggle('active', section.id === tab.dataset.target));
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => activateTab(tab));
+    });
+  </script>
 </body>
-</html
+</html>
