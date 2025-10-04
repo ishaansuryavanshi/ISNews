@@ -1,259 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Native Tribes of Washington</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #001111;
-      color: #d9ffd9;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
-    header {
-      background: #00ff66;
-      color: #001111;
-      padding: 1.5rem;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.2rem;
-    }
-    nav {
-      background: #003322;
-      padding: 0.5rem;
-      text-align: center;
-    }
-    nav a {
-      color: #00ff66;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .section {
-      padding: 2rem;
-      max-width: 1000px;
-      margin: auto;
-    }
-    h2 {
-      color: #00ff66;
-      border-bottom: 2px solid #00ff66;
-      padding-bottom: 0.3rem;
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .card {
-      background: #002222;
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #00ff66;
-    }
-    .card h3 {
-      margin-top: 0;
-      color: #00dd66;
-    }
-    .timeline {
-      list-style: none;
-      padding: 0;
-    }
-    .timeline li {
-      background: #002222;
-      margin: 0.6rem 0;
-      padding: 0.8rem;
-      border-left: 4px solid #00ff66;
-      border-radius: 4px;
-    }
-    #quiz button {
-      display: block;
-      margin: 0.3rem 0;
-      padding: 0.5rem;
-      border: none;
-      border-radius: 6px;
-      background: #003322;
-      color: #d9ffd9;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    #quiz button:hover {
-      background: #005533;
-    }
-    .feedback {
-      margin: 0.3rem 0 0 0;
-      font-weight: bold;
-    }
-    #quiz-score {
-      margin-top: 1rem;
-      font-size: 1.3rem;
-      font-weight: bold;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #003322;
-      color: #00ff66;
-      margin-top: 2rem;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Native Tribes of Washington</title>
+<style>
+/* --- General Styles --- */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #001111;
+  color: #d9ffd9;
+  margin: 0;
+  padding: 0;
+  line-height: 1.7;
+  scroll-behavior: smooth;
+}
+a { text-decoration: none; color: #00ff66; transition: 0.3s; }
+a:hover { color: #aaffaa; }
+
+/* --- Header --- */
+header {
+  background: linear-gradient(135deg, #00ff66, #009944);
+  color: #001111;
+  padding: 2rem 1rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+header h1 { margin: 0; font-size: 2.8rem; letter-spacing: 1px; }
+header p { font-size: 1.3rem; margin-top: 0.5rem; }
+
+/* --- Navigation --- */
+nav {
+  background: #003322;
+  padding: 0.8rem;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+nav a { margin: 0 1rem; font-weight: bold; }
+nav a:hover { text-shadow: 0 0 5px #00ff66; }
+
+/* --- Section --- */
+.section { padding: 2rem 1rem; max-width: 1200px; margin: auto; }
+h2 {
+  color: #00ff66;
+  border-bottom: 2px solid #00ff66;
+  padding-bottom: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+/* --- Cards --- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+.card {
+  background: #002222;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #00ff66;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px #00ff66;
+}
+.card h3 { margin-top: 0; color: #00dd66; }
+
+/* --- Timeline --- */
+.timeline { list-style: none; padding: 0; }
+.timeline li {
+  background: #002222;
+  margin: 0.8rem 0;
+  padding: 1rem;
+  border-left: 5px solid #00ff66;
+  border-radius: 6px;
+  transition: transform 0.2s;
+}
+.timeline li:hover { transform: scale(1.02); }
+
+/* --- Quiz --- */
+#quiz button {
+  display: block;
+  margin: 0.3rem 0;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 8px;
+  background: #003322;
+  color: #d9ffd9;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100%;
+  text-align: left;
+}
+#quiz button:hover { background: #005533; }
+.feedback { margin: 0.3rem 0 0 0; font-weight: bold; }
+#quiz-score {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 1.2rem;
+  background: #003322;
+  color: #00ff66;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+/* --- Animations --- */
+.card, .timeline li { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.7s forwards; }
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+</style>
 </head>
 <body>
-  <header>
-    <h1>Native Tribes of Washington</h1>
-    <p>Learn about the history, culture, and traditions of Washington’s first peoples</p>
-  </header>
 
-  <nav>
-    <a href="#tribes">Tribes</a>
-    <a href="#history">History</a>
-    <a href="#landmarks">Landmarks</a>
-    <a href="#timeline">Timeline</a>
-    <a href="#faq">FAQ & Quiz</a>
-  </nav>
+<header>
+  <h1>Native Tribes of Washington</h1>
+  <p>Learn about the history, culture, and traditions of Washington’s first peoples</p>
+</header>
 
-  <!-- Tribes Section -->
-  <section id="tribes" class="section">
-    <h2>Tribes of Washington</h2>
-    <div class="cards">
-      <div class="card"><h3>Spokane Tribe</h3><p>Located in eastern Washington, known as the “Children of the Sun.”</p></div>
-      <div class="card"><h3>Yakama Nation</h3><p>One of the largest tribes in Washington, known for fishing rights and traditions.</p></div>
-      <div class="card"><h3>Lummi Nation</h3><p>Coast Salish people near Bellingham, skilled fishers and canoe builders.</p></div>
-      <div class="card"><h3>Nisqually Tribe</h3><p>From the southern Puget Sound, led by Chief Leschi in the 1850s.</p></div>
-      <div class="card"><h3>Quinault Indian Nation</h3><p>Known for their cedar canoes, basketry, and salmon fishing.</p></div>
-    </div>
-  </section>
+<nav>
+  <a href="#tribes">Tribes</a>
+  <a href="#history">History</a>
+  <a href="#landmarks">Landmarks</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#faq">FAQ & Quiz</a>
+</nav>
 
-  <!-- History Section -->
-  <section id="history" class="section">
-    <h2>History & Culture</h2>
-    <p>For thousands of years, Native peoples lived in what is now Washington, relying on salmon, cedar trees, and the rich natural environment. They built longhouses, carved canoes, and passed down knowledge through stories and songs.</p>
-    <p>In the 1850s, the U.S. government signed treaties with tribes, promising fishing and hunting rights but taking much of their land. Leaders like Chief Leschi resisted unfair treatment and are honored today.</p>
-    <p>Despite hardships like disease, boarding schools, and broken treaties, Washington’s tribes continue to preserve their cultures through powwows, language programs, and community traditions.</p>
-  </section>
+<!-- --- Tribes Section --- -->
+<section id="tribes" class="section">
+<h2>Tribes of Washington</h2>
+<div class="cards">
+  <div class="card"><h3>Spokane Tribe</h3><p>Eastern Washington; known as “Children of the Sun.” Traditional fishing and hunting practices, modern cultural programs.</p></div>
+  <div class="card"><h3>Yakama Nation</h3><p>One of the largest tribes; famous for salmon fishing rights, horse culture, and powwows.</p></div>
+  <div class="card"><h3>Lummi Nation</h3><p>Coast Salish tribe near Bellingham; skilled canoe builders, fishers, and environmental activists.</p></div>
+  <div class="card"><h3>Nisqually Tribe</h3><p>Southern Puget Sound; historic resistance under Chief Leschi; active in cultural preservation.</p></div>
+  <div class="card"><h3>Quinault Indian Nation</h3><p>Located along the Olympic coast; renowned for basketry, cedar canoes, and salmon fishing.</p></div>
+  <div class="card"><h3>Makah Tribe</h3><p>Northwest coast; whalers and fishers with strong cultural preservation of language and stories.</p></div>
+  <div class="card"><h3>Quileute Tribe</h3><p>Coastal Olympic Peninsula; famous for wolf legends, fishing, and traditional arts.</p></div>
+  <div class="card"><h3>Hoh Tribe</h3><p>Preserve rainforest-based traditions, cedar arts, and salmon fishing on the Hoh River.</p></div>
+  <div class="card"><h3>Jamestown S’Klallam</h3><p>Sequim area; dedicated to language and cultural revival programs.</p></div>
+  <div class="card"><h3>Port Gamble S’Klallam</h3><p>Coastal tribe; strong community programs and preservation of Coast Salish heritage.</p></div>
+  <div class="card"><h3>Suquamish Tribe</h3><p>Home of Chief Seattle; active in cultural events, language revival, and environmental stewardship.</p></div>
+  <div class="card"><h3>Swinomish Tribe</h3><p>Near La Conner; maintain fishing, language programs, and traditional ceremonies.</p></div>
+  <div class="card"><h3>Stillaguamish Tribe</h3><p>Puget Sound region; work to revitalize language, ceremonies, and economic development.</p></div>
+  <div class="card"><h3>Upper Skagit Tribe</h3><p>Skagit River region; preserve fishing, cedar arts, and tribal traditions.</p></div>
+  <div class="card"><h3>Lower Elwha Klallam</h3><p>Coastal tribe; active in restoring ancestral lands and cultural programs.</p></div>
+  <div class="card"><h3>Nooksack Tribe</h3><p>Northwestern Washington; maintain language, ceremonies, and cultural heritage.</p></div>
+  <div class="card"><h3>Puyallup Tribe</h3><p>Puget Sound; known for powwows, casinos, and cultural preservation efforts.</p></div>
+  <div class="card"><h3>Skokomish Tribe</h3><p>Near Hood Canal; preserve cedar arts, fishing, and Coast Salish traditions.</p></div>
+  <div class="card"><h3>Chehalis Tribe</h3><p>Southwestern Washington; active in cultural revival, economic development, and language programs.</p></div>
+  <div class="card"><h3>Colville Confederated Tribes</h3><p>Eastern Washington; large confederation of twelve tribes preserving traditions and culture.</p></div>
+  <div class="card"><h3>Kalispel Tribe</h3><p>Eastern Washington; maintain language, fishing rights, and cultural traditions.</p></div>
+  <div class="card"><h3>Muckleshoot Tribe</h3><p>Central Puget Sound; active in cultural preservation, governance, and community programs.</p></div>
+  <div class="card"><h3>Squaxin Island Tribe</h3><p>South Puget Sound; strong preservation of fishing rights, ceremonies, and traditions.</p></div>
+  <div class="card"><h3>Swinomish Tribe</h3><p>Northern Puget Sound; maintain traditions, language, and fisheries co-management.</p></div>
+  <div class="card"><h3>Upper Skagit Tribe</h3><p>Skagit River; cultural, language, and community revitalization programs.</p></div>
+  <div class="card"><h3>Yakama Nation</h3><p>Eastern Washington; one of the largest tribes with deep traditions and economic initiatives.</p></div>
+</div>
+</section>
 
-  <!-- Landmarks Section -->
-  <section id="landmarks" class="section">
-    <h2>Sacred Landmarks</h2>
-    <div class="cards">
-      <div class="card"><h3>Snoqualmie Falls</h3><p>A sacred site for the Snoqualmie people, representing life and spirituality.</p></div>
-      <div class="card"><h3>Mount Rainier (Tahoma)</h3><p>A sacred mountain central to tribal origin stories.</p></div>
-      <div class="card"><h3>Columbia River</h3><p>Vital for salmon fishing and trade among many tribes.</p></div>
-    </div>
-  </section>
+<!-- History & Culture Section -->
+<section id="history" class="section">
+<h2>History & Culture</h2>
+<p>For thousands of years, the tribes of Washington thrived by living in harmony with the land and waters. Salmon, cedar, and the rich forests shaped their daily lives. Tribes built longhouses, carved canoes, and passed down knowledge orally through stories, songs, and ceremonies.</p>
+<p>European contact in the 1700s introduced trade, disease, and upheaval. In the 1850s, treaties like the Treaty of Point Elliott and Treaty of Medicine Creek often took lands while promising fishing rights. Leaders like <strong>Chief Leschi</strong> of the Nisqually resisted unjust treaties.</p>
+<p>In the late 1800s, boarding schools attempted to erase Native languages and traditions, yet tribes preserved their culture through powwows, ceremonies, and storytelling. Today, tribes operate cultural centers, language programs, and environmental initiatives, blending tradition with modern governance.</p>
+<p>Tribal languages include Lushootseed, Sahaptin, Salish, Klallam, Makah, and many more. Storytelling remains central, including creation myths, animal legends, and histories of resilience.</p>
+</section>
 
-  <!-- Timeline Section -->
-  <section id="timeline" class="section">
-    <h2>Timeline of Native History in Washington</h2>
-    <ul class="timeline">
-      <li><strong>Before 1700s:</strong> Native peoples thrive for thousands of years, living in longhouses, fishing salmon, and building strong trade networks.</li>
-      <li><strong>1770s:</strong> Contact with explorers brings trade goods but also devastating new diseases.</li>
-      <li><strong>1854–1855:</strong> Treaties like the Treaty of Point Elliott and Treaty of Medicine Creek are signed. Tribes keep fishing rights but lose much land.</li>
-      <li><strong>1855–1858:</strong> Leaders like Chief Leschi of the Nisqually resist unfair treaties. The Yakama War and conflicts in eastern Washington erupt.</li>
-      <li><strong>Late 1800s:</strong> Boarding schools try to erase Native languages and traditions.</li>
-      <li><strong>1900s:</strong> Tribes fight to keep fishing rights as dams and restrictions limit salmon runs.</li>
-      <li><strong>1974:</strong> The Boldt Decision reaffirms tribal treaty fishing rights, making tribes co-managers of fisheries.</li>
-      <li><strong>1990s–2000s:</strong> Tribes strengthen economies and revive languages and traditions.</li>
-      <li><strong>Today:</strong> Washington’s 29 tribes continue to protect salmon, teach traditions, and govern as sovereign nations.</li>
-    </ul>
-  </section>
+<!-- Landmarks Section -->
+<section id="landmarks" class="section">
+<h2>Sacred Landmarks</h2>
+<div class="cards">
+  <div class="card"><h3>Snoqualmie Falls</h3><p>Height 268 feet; sacred to Snoqualmie people, represents life, healing, and spiritual connection.</p></div>
+  <div class="card"><h3>Mount Rainier (Tahoma)</h3><p>Central to Coast Salish origin stories; site of spiritual vision quests and ceremonies.</p></div>
+  <div class="card"><h3>Columbia River</h3><p>Vital for salmon fishing and trade; integral to multiple tribes’ economies and culture.</p></div>
+  <div class="card"><h3>Hoh Rainforest</h3><p>Stewarded by Hoh Tribe; home to ancient cedar groves and salmon-bearing rivers.</p></div>
+  <div class="card"><h3>Cape Flattery</h3><p>Makah lands; location of whaling traditions and ceremonial sites.</p></div>
+</div>
+</section>
 
-  <!-- FAQ + Quiz Section -->
-  <section id="faq" class="section">
-    <h2>Frequently Asked Questions</h2>
-    <div class="intro-text">
-      <p><strong>Q: How many tribes are in Washington?</strong><br> A: There are 29 federally recognized tribes.</p>
-      <p><strong>Q: Why are salmon so important?</strong><br> A: Salmon are central to food, culture, and spiritual traditions. Treaties protect tribal fishing rights.</p>
-      <p><strong>Q: Do tribes still speak Native languages?</strong><br> A: Yes, many tribes are reviving their languages through schools and programs.</p>
-      <p><strong>Q: What does sovereignty mean?</strong><br> A: It means tribes govern themselves and manage their own communities.</p>
-      <p><strong>Q: What is a reservation?</strong><br> A: A reservation is land set aside for a tribe through treaties or agreements.</p>
-      <p><strong>Q: What is a powwow?</strong><br> A: A powwow is a Native gathering with dance, music, food, and celebration.</p>
-      <p><strong>Q: Who was Chief Leschi?</strong><br> A: A Nisqually leader who defended his people’s land in the 1850s, remembered as a hero.</p>
-    </div>
+<!-- Timeline Section -->
+<section id="timeline" class="section">
+<h2>Timeline of Native History in Washington</h2>
+<ul class="timeline">
+<li><strong>Before 1700s:</strong> Tribes live in longhouses, fish salmon, hunt, gather, and develop trade networks.</li>
+<li><strong>1700–1770s:</strong> Explorers arrive; trade goods exchanged; diseases devastate populations.</li>
+<li><strong>1854–1855:</strong> Treaties signed (Point Elliott, Medicine Creek); land ceded but fishing rights retained.</li>
+<li><strong>1855–1858:</strong> Yakama War and conflicts; leaders like Chief Leschi resist unfair treaties.</li>
+<li><strong>Late 1800s:</strong> Boarding schools suppress Native languages; tribes fight to preserve culture.</li>
+<li><strong>1900s:</strong> Salmon runs threatened by dams; tribes advocate for fishing rights.</li>
+<li><strong>1974:</strong> Boldt Decision affirms treaty fishing rights; tribes co-manage fisheries.</li>
+<li><strong>1990s–2000s:</strong> Tribes revive languages, culture, and economic initiatives.</li>
+<li><strong>Today:</strong> Washington’s 29 tribes protect salmon, teach traditions, and govern sovereign communities.</li>
+</ul>
+</section>
 
-    <!-- Quiz -->
-    <h2 style="margin-top:2rem;">Quick Quiz</h2>
-    <p>Test your knowledge! Select an answer to see instant feedback and your running score.</p>
-    <div id="quiz">
-      <div class="quiz-question">
-        <p><strong>1. How many federally recognized tribes are in Washington?</strong></p>
-        <button onclick="selectAnswer(0,true,this)">29</button>
-        <button onclick="selectAnswer(0,false,this)">15</button>
-        <button onclick="selectAnswer(0,false,this)">50</button>
-        <p class="feedback"></p>
-      </div>
-      <div class="quiz-question">
-        <p><strong>2. Why are salmon important to tribes?</strong></p>
-        <button onclick="selectAnswer(1,true,this)">Food, culture, and tradition</button>
-        <button onclick="selectAnswer(1,false,this)">Only for trade</button>
-        <button onclick="selectAnswer(1,false,this)">Just for sport</button>
-        <p class="feedback"></p>
-      </div>
-      <div class="quiz-question">
-        <p><strong>3. What is a powwow?</strong></p>
-        <button onclick="selectAnswer(2,false,this)">A kind of treaty</button>
-        <button onclick="selectAnswer(2,true,this)">A cultural gathering with dance and music</button>
-        <button onclick="selectAnswer(2,false,this)">A fishing technique</button>
-        <p class="feedback"></p>
-      </div>
-      <div class="quiz-question">
-        <p><strong>4. Who was Chief Leschi?</strong></p>
-        <button onclick="selectAnswer(3,true,this)">A Nisqually leader who defended his people</button>
-        <button onclick="selectAnswer(3,false,this)">A U.S. soldier in the 1800s</button>
-        <button onclick="selectAnswer(3,false,this)">A Makah fisherman</button>
-        <p class="feedback"></p>
-      </div>
-      <div class="quiz-question">
-        <p><strong>5. What is sovereignty?</strong></p>
-        <button onclick="selectAnswer(4,true,this)">The right of tribes to govern themselves</button>
-        <button onclick="selectAnswer(4,false,this)">Permission from the state</button>
-        <button onclick="selectAnswer(4,false,this)">Owning fishing boats</button>
-        <p class="feedback"></p>
-      </div>
-      <div class="quiz-question">
-        <p><strong>6. What is a reservation?</strong></p>
-        <button onclick="selectAnswer(5,true,this)">Land set aside for a tribe by treaty or agreement</button>
-        <button onclick="selectAnswer(5,false,this)">A campsite</button>
-        <button onclick="selectAnswer(5,false,this)">A government office</button>
-        <p class="feedback"></p>
-      </div>
-    </div>
-    <div id="quiz-score">Score: 0 / 0</div>
-  </section>
+<!-- FAQ + Quiz Section -->
+<section id="faq" class="section">
+<h2>Frequently Asked Questions</h2>
+<div class="intro-text">
+<p><strong>Q: How many tribes are in Washington?</strong><br> A: 29 federally recognized tribes.</p>
+<p><strong>Q: Why are salmon so important?</strong><br> A: Central to food, culture, and spiritual life; treaties protect fishing rights.</p>
+<p><strong>Q: Do tribes still speak Native languages?</strong><br> A: Yes, many languages are revived via schools and programs.</p>
+<p><strong>Q: What does sovereignty mean?</strong><br> A: Tribes govern themselves and manage their communities.</p>
+<p><strong>Q: What is a powwow?</strong><br> A: A gathering with dance, music, food, and celebration of culture.</p>
+<p><strong>Q: Who was Chief Leschi?</strong><br> A: Nisqually leader who defended his people’s land in the 1850s.</p>
+</div>
 
-  <footer>
-    <p>&copy; 2025 Native Tribes of Washington | Educational Resource</p>
-  </footer>
+<h2 style="margin-top:2rem;">Interactive Quiz</h2>
+<p>Test your knowledge about Washington’s tribes:</p>
+<div id="quiz">
+<div class="quiz-question">
+<p><strong>1. How many federally recognized tribes are in Washington?</strong></p>
+<button onclick="selectAnswer(0,true,this)">29</button>
+<button onclick="selectAnswer(0,false,this)">15</button>
+<button onclick="selectAnswer(0,false,this)">50</button>
+<p class="feedback"></p>
+</div>
+<div class="quiz-question">
+<p><strong>2. Which is a Coast Salish tribe?</strong></p>
+<button onclick="selectAnswer(1,true,this)">Suquamish</button>
+<button onclick="selectAnswer(1,false,this)">Spokane</button>
+<button onclick="selectAnswer(1,false,this)">Yakama</button>
+<p class="feedback"></p>
+</div>
+<div class="quiz-question">
+<p><strong>3. What does a powwow celebrate?</strong></p>
+<button onclick="selectAnswer(2,false,this)">Fishing rights</button>
+<button onclick="selectAnswer(2,true,this)">Culture and traditions</button>
+<button onclick="selectAnswer(2,false,this)">Land treaties</button>
+<p class="feedback"></p>
+</div>
+<div class="quiz-question">
+<p><strong>4. Who was Chief Leschi?</strong></p>
+<button onclick="selectAnswer(3,true,this)">Nisqually leader defending his people</button>
+<button onclick="selectAnswer(3,false,this)">Explorer</button>
+<button onclick="selectAnswer(3,false,this)">Trader</button>
+<p class="feedback"></p>
+</div>
+<div class="quiz-question">
+<p><strong>5. What is sovereignty?</strong></p>
+<button onclick="selectAnswer(4,true,this)">Right to self-govern</button>
+<button onclick="selectAnswer(4,false,this)">Permission from the state</button>
+<button onclick="selectAnswer(4,false,this)">Owning fishing boats</button>
+<p class="feedback"></p>
+</div>
+<div class="quiz-question">
+<p><strong>6. What is a reservation?</strong></p>
+<button onclick="selectAnswer(5,true,this)">Land set aside by treaty or agreement</button>
+<button onclick="selectAnswer(5,false,this)">Campground</button>
+<button onclick="selectAnswer(5,false,this)">Government office</button>
+<p class="feedback"></p>
+</div>
+</div>
+<div id="quiz-score">Score: 0 / 0</div>
+</section>
 
-  <script>
-    const answers = [null,null,null,null,null,null];
-    
-    function selectAnswer(qIndex, isCorrect, btn) {
-      answers[qIndex] = isCorrect;
+<footer>
+<p>&copy;Ishaan Suryavanshi/p>
+</footer>
 
-      const questionDiv = document.querySelectorAll(".quiz-question")[qIndex];
-      const buttons = questionDiv.querySelectorAll("button");
-      const feedback = questionDiv.querySelector(".feedback");
+<script>
+const answers = [null,null,null,null,null,null];
 
-      // Reset all buttons
-      buttons.forEach(b => b.style.backgroundColor = "#003322");
+function selectAnswer(qIndex, isCorrect, btn) {
+  answers[qIndex] = isCorrect;
+  const questionDiv = document.querySelectorAll(".quiz-question")[qIndex];
+  const buttons = questionDiv.querySelectorAll("button");
+  const feedback = questionDiv.querySelector(".feedback");
+  buttons.forEach(b => b.style.backgroundColor = "#003322");
+  btn.style.backgroundColor = isCorrect ? "#00aa44" : "#aa2222";
+  feedback.textContent = isCorrect ? "✅ Correct!" : "❌ Try again!";
+  let correctCount = answers.filter(a => a===true).length;
+  let answeredCount = answers.filter(a => a!==null).length;
+  document.getElementById("quiz-score").textContent = `Score: ${correctCount} / ${answeredCount}`;
+}
+</script>
 
-      // Color clicked button
-      btn.style.backgroundColor = isCorrect ? "#00aa44" : "#aa2222";
-
-      // Show instant feedback
-      feedback.textContent = isCorrect ? "✅ Correct!" : "❌ Try again!";
-
-      // Update running score
-      let correctCount = answers.filter(a => a === true).length;
-      let answeredCount = answers.filter(a => a !== null).length;
-      document.getElementById("quiz-score").textContent = `Score: ${correctCount} / ${answeredCount}`;
-    }
-  </script>
 </body>
 </html>
